@@ -6,6 +6,10 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class SelectionOfBots extends TelegramLongPollingBot {
 
     @Override
@@ -21,10 +25,10 @@ public class SelectionOfBots extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
 
+
         if (update.hasMessage()) {
             Message message = update.getMessage();
 
-            if (message.hasText()) {
 
 //                if (message.hasText() && message.getText().equals("/start")) {
 //
@@ -47,19 +51,26 @@ public class SelectionOfBots extends TelegramLongPollingBot {
                     if (message.hasText()) {
                         SendMessage repeaterBot = new SendMessage();
                         repeaterBot.setChatId(message.getChatId().toString());
-                        repeaterBot.setText(message.getText());
+                        System.out.println("Пользователь написал: " + message.getText());
+
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+                        try {
+                            System.out.print("Ответ пользователю: ");
+                            String txt = reader.readLine();
+                            repeaterBot.setText("Бот говорит: " + txt);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
                         try {
                             execute(repeaterBot);
-                            System.out.println(message.getText());
                         } catch (TelegramApiException e) {
                             e.printStackTrace();
                         }
 
+
                     }
-
-
-            }
         }
     }
 }
