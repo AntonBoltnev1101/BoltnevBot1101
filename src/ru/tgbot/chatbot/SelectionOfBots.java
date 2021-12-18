@@ -25,7 +25,6 @@ public class SelectionOfBots extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
 
-
         if (update.hasMessage()) {
             Message message = update.getMessage();
 
@@ -48,28 +47,56 @@ public class SelectionOfBots extends TelegramLongPollingBot {
 //                    }
 //                }
 
-                    if (message.hasText()) {
+                    if (message.hasText() && !message.getText().equals("/exit"))
+                    {
                         SendMessage repeaterBot = new SendMessage();
                         repeaterBot.setChatId(message.getChatId().toString());
+
                         System.out.println("Пользователь написал: " + message.getText());
 
                         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-                        try {
+
+                        try
+                        {
                             System.out.print("Ответ пользователю: ");
                             String txt = reader.readLine();
                             repeaterBot.setText("Бот говорит: " + txt);
-                        } catch (IOException e) {
+                        }
+
+                        catch (IOException e)
+                        {
                             e.printStackTrace();
                         }
 
-                        try {
+                        try
+                        {
                             execute(repeaterBot);
-                        } catch (TelegramApiException e) {
-                            e.printStackTrace();
                         }
 
+                        catch (TelegramApiException e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
 
+                    else
+                    {
+                        SendMessage endMess = new SendMessage();
+                        endMess.setChatId(message.getChatId().toString());
+                        endMess.setText("До встречи !");
+
+                        try
+                        {
+                            execute(endMess);
+                            System.out.println("Бот выключен");
+                            System.exit(0);
+                        }
+
+                        catch (TelegramApiException e)
+                        {
+                            e.printStackTrace();
+                        }
                     }
         }
     }

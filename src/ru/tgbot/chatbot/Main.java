@@ -4,6 +4,8 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
+import java.util.Date;
+
 public class Main{
 
     public static void main(String[] args) throws TelegramApiException {
@@ -11,15 +13,13 @@ public class Main{
         TelegramBotsApi metabot = new TelegramBotsApi(DefaultBotSession.class);
         {
             try {
+                System.out.println("Бот запущен !\n" + "Ожидайте ответа пользователя");
+
                 metabot.registerBot(new SelectionOfBots());
-                System.out.println("Происходит выбор бота");
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
         }
-
-
-        System.out.println("Бот запущен !");
 
     }
 
