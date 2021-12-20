@@ -27,6 +27,8 @@ public class SelectionOfBots extends TelegramLongPollingBot {
 
         if (update.hasMessage()) {
             Message message = update.getMessage();
+            System.out.println("Пользователь написал: " + message.getText());
+
 
             if (message.getText().equals("/start"))
             {
@@ -66,7 +68,6 @@ public class SelectionOfBots extends TelegramLongPollingBot {
                         SendMessage repeaterBot = new SendMessage();
                         repeaterBot.setChatId(message.getChatId().toString());
 
-                        System.out.println("Пользователь написал: " + message.getText());
 
                         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
