@@ -28,26 +28,40 @@ public class SelectionOfBots extends TelegramLongPollingBot {
         if (update.hasMessage()) {
             Message message = update.getMessage();
 
+            if (message.getText().equals("/start"))
+            {
+                SendMessage startMessage = new SendMessage();
+                startMessage.setChatId(message.getChatId().toString());
+                startMessage.setText("Вас приветствует @METAELAY !\n" +
+                        "Введите свое сообщение и ожидайте ответа...");
 
-//                if (message.hasText() && message.getText().equals("/start")) {
-//
-//
-//                    SendMessage sendMessage2 = new SendMessage();
-//                    sendMessage2.setChatId(message.getChatId().toString());
-//                    sendMessage2.setText("Добро пожаловать !\n" +
-//                            "Выберите тип бота с которым хотите общаться:\n" +
-//                            "1 - Бот - повторюшка\n" +
-//                            "2 - Бот - автоответчик\n" + "Нажмите 1, если хотите, если хотите выбрать бота - повторюшку\n" +
-//                            "Нажмите 2, если хотите выбрать бота - автоответчика: ");
-//
-//                    try {
-//                        execute(sendMessage2);
-//                    } catch (TelegramApiException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
+                try {
+                    execute(startMessage);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            }
 
-                    if (message.hasText() && !message.getText().equals("/exit"))
+            else if (message.getText().equals("/exit"))
+            {
+                SendMessage endMess = new SendMessage();
+                endMess.setChatId(message.getChatId().toString());
+                endMess.setText("До встречи !");
+
+                try
+                {
+                    execute(endMess);
+                    System.out.println("Бот выключен");
+                    System.exit(0);
+                }
+
+                catch (TelegramApiException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+
+                    else
                     {
                         SendMessage repeaterBot = new SendMessage();
                         repeaterBot.setChatId(message.getChatId().toString());
@@ -72,25 +86,6 @@ public class SelectionOfBots extends TelegramLongPollingBot {
                         try
                         {
                             execute(repeaterBot);
-                        }
-
-                        catch (TelegramApiException e)
-                        {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    else
-                    {
-                        SendMessage endMess = new SendMessage();
-                        endMess.setChatId(message.getChatId().toString());
-                        endMess.setText("До встречи !");
-
-                        try
-                        {
-                            execute(endMess);
-                            System.out.println("Бот выключен");
-                            System.exit(0);
                         }
 
                         catch (TelegramApiException e)
