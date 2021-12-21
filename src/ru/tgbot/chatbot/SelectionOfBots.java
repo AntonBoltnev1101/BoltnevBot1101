@@ -3,9 +3,7 @@ package ru.tgbot.chatbot;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
-import org.telegram.telegrambots.meta.api.objects.InputFile;
-import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.*;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.BufferedReader;
@@ -19,12 +17,12 @@ public class SelectionOfBots extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "@METAELAY_BOT";
+        return "@XXX";
     }
 
     @Override
     public String getBotToken() {
-        return "5003834982:AAHiHQYM1mXC4F4-tmg7hXM1USCq62xi-vs";
+        return "HIDDEN TOKEN";
     }
 
     @Override
@@ -37,14 +35,15 @@ public class SelectionOfBots extends TelegramLongPollingBot {
 
         Collections.shuffle(arrayList);
 
+        if (update.hasMessage() )
+        {
 
-
-
-
-
-        if (update.hasMessage() ) {
             Message message = update.getMessage();
-            System.out.println("Пользователь написал: " + message.getText());
+
+            System.out.println(update.getMessage()
+                    .getFrom()
+                    .getFirstName() + ", написал: "
+                    + message.getText());
 
 
             if (message.getText().equals("/start"))
@@ -52,7 +51,7 @@ public class SelectionOfBots extends TelegramLongPollingBot {
                 SendMessage startMessage = new SendMessage();
                 startMessage.setChatId(message.getChatId().toString());
                 startMessage.setText("Вас приветствует @METAELAY !\n" +
-                        "Введите свое сообщение и ожидайте ответа...");
+                        update.getMessage().getFrom().getFirstName()  + ", введите свое сообщение и ожидайте ответа...");
 
                 try {
                     execute(startMessage);
@@ -65,7 +64,8 @@ public class SelectionOfBots extends TelegramLongPollingBot {
             {
                 SendMessage endMess = new SendMessage();
                 endMess.setChatId(message.getChatId().toString());
-                endMess.setText("До встречи !");
+                endMess.setText("До встречи, " + update.getMessage().getFrom().getFirstName() + " !");
+
 
                 try
                 {
@@ -89,9 +89,12 @@ public class SelectionOfBots extends TelegramLongPollingBot {
                 sendPhoto.setPhoto(arrayList.get(0));
                 sendPhoto.setCaption("Лягушка");
 
-                try {
+                try
+                {
                     execute(sendPhoto);
-                } catch (TelegramApiException e) {
+                }
+                catch (TelegramApiException e)
+                {
                     e.printStackTrace();
                 }
             }
@@ -114,7 +117,9 @@ public class SelectionOfBots extends TelegramLongPollingBot {
                         try
                         {
                             execute(wait);
-                            System.out.print("Ответ пользователю: ");
+                            System.out.print("Ответ пользователю " + update.getMessage()
+                                    .getFrom()
+                                    .getFirstName() + ": ");
                             String txt = reader.readLine();
                             repeaterBot.setText("Бот говорит: " + txt);
                             execute(repeaterBot);
@@ -125,7 +130,9 @@ public class SelectionOfBots extends TelegramLongPollingBot {
                             e.printStackTrace();
                         }
                     }
+            System.out.println("Ожидайте ответа от " + update.getMessage().getFrom().getFirstName() + "...");
         }
+
     }
 }
 

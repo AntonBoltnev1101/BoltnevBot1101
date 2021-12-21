@@ -9,13 +9,14 @@ public class Main {
 
 
     public static void main(String[] args) throws TelegramApiException {
+        TelegramBotsApi metaBot = new TelegramBotsApi(DefaultBotSession.class);
 
-        TelegramBotsApi metabot = new TelegramBotsApi(DefaultBotSession.class);
         {
             try {
-                System.out.println("Бот запущен !\n" + "Ожидайте ответа пользователя");
 
-                metabot.registerBot(new SelectionOfBots());
+                System.out.println("Бот запущен !\n" + "Ожидайте ответа пользователя...");
+
+                metaBot.registerBot(new SelectionOfBots());
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
