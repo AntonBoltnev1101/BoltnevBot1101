@@ -28,12 +28,12 @@ public class SelectionOfBots extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "@METAELAY_BOT:";
+        return "@XXX";
     }
 
     @Override
     public String getBotToken() {
-        return "5003834982:AAHiHQYM1mXC4F4-tmg7hXM1USCq62xi-vs";
+        return "HIDDEN TOKEN";
     }
 
     @Override
