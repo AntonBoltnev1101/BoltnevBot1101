@@ -17,7 +17,8 @@ public class Main {
         BufferedReader dd = new BufferedReader(new InputStreamReader(System.in));
 
         try {
-            System.out.println("Бот запущен !\n" + "Ожидайте ответа пользователя...");
+            System.out.println("Бот запущен !\n");
+            Thread.sleep(1000);
             System.out.println("1: Обычный режим\n" + "2: DDos Attack\n");
             System.out.print("Выберите режим: ");
             String ddAt = dd.readLine();
@@ -37,14 +38,13 @@ public class Main {
                 }
                 while (!dd.readLine().equals("1"));
                 System.out.println("Отключение DDos");
+                System.out.println("Бот выключен !");
                 System.exit(0);
-
-
 
             }
 
 
-            } catch (TelegramApiException | IOException e) {
+            } catch (TelegramApiException | IOException | InterruptedException e) {
                 e.printStackTrace();
             }
 
