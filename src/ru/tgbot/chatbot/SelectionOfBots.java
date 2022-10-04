@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -85,14 +86,36 @@ public class SelectionOfBots extends TelegramLongPollingBot {
         if (update.hasMessage())
         {
 
+
+
             Message message = update.getMessage();
 
             if (update.getMessage().hasText()) {
+
+                //Тело JSON запроса
+               /* String query = "https://api.telegram.org/bot" + getBotToken()
+                        + "/getUpdates";
+
+                        ?chat_id=" + message.getChatId()
+                        + "&message_id=" + message.getMessageId()
+                        + "&text=" + message.getText();
+
+                URL queryURL = null;
+                try {
+                    queryURL = new URL(query);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("JSON: " + queryURL);
+
+                */
 
                 System.out.println(update.getMessage()
                         .getFrom()
                         .getFirstName() + ", написал: "
                         + message.getText());
+
+                //System.out.println(update.getMessage());
 
 
 
@@ -615,7 +638,7 @@ public class SelectionOfBots extends TelegramLongPollingBot {
 
     public void downloadFile(String fileName, String fileId) throws IOException {
         URL url = new URL("https://api.telegram.org/bot" + getBotToken() + "/getFile?file_id=" + fileId);
-//        System.out.println("Запрос на скачивание файла через браузер " + url);
+        System.out.println("Запрос на скачивание файла через браузер " + url);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
         String getFileRsponse = br.readLine();
